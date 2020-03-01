@@ -1,0 +1,28 @@
+package ram.test.yahoo_search;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class Proj1 {
+
+	public static void main(String[] args) throws InterruptedException {
+		// FirefoxDriver driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "C:/Users/Ram/Downloads/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://ca.yahoo.com//");
+				WebElement searchBox;
+		 searchBox = driver.findElement(By.id("uh-search-box"));
+		searchBox.sendKeys("software");
+		WebElement Login;
+		Login = driver.findElement(By.id("uh-search-button"));
+		Login.click();
+		Thread.sleep(5000);
+		driver.quit();
+
+	}
+
+}
