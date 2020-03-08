@@ -1,0 +1,68 @@
+package Crossbrowser1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import java.util.concurrent.TimeUnit;
+
+public class CrossBrowser1
+{
+	public static WebDriver driver;
+	public static void setup(String browser) throws Exception
+	{
+		if(browser.equalsIgnoreCase("firefox"))
+		{
+			System.setProperty("webdriver.gecko.driver", "E:/geckodriver-v0.26.0-win64/geckodriver.exe");
+			driver = new FirefoxDriver();
+			
+		}
+		else if(browser.equalsIgnoreCase("chrome"))
+		{
+			System.setProperty("webdriver.chrome.driver", "C:/Users/Ram/Downloads/chromedriver.exe");
+			driver = new ChromeDriver();
+		}
+		else if(browser.equalsIgnoreCase("IE"))
+		{
+			System.setProperty("webdriver.ie.driver", "E:/IEDriverServer.exe");
+			driver = new InternetExplorerDriver();
+			
+		}
+		else if(browser.equalsIgnoreCase("edge"))
+		{
+			System.setProperty("webdriver.edge.driver", "E:/edgedriver_win64/msedgedriver.exe");
+			driver = new EdgeDriver();
+			
+		}
+		else
+		{
+			throw new Exception ("Browser is not correct");
+			
+		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+	public static void testParameterWithXML() throws InterruptedException
+	{
+		driver.get("https://www.instagram.com/accounts/login/?hl=en");
+		WebElement userName = driver.findElement(By.name("username"));
+		userName.sendKeys("Instagram@gmai.com");
+		WebElement password = driver.findElement(By.name("password"));
+		password.sendKeys("InstaPass");
+		
+	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		setup("firefox");
+		testParameterWithXML();
+		setup("chrome");
+		testParameterWithXML();
+		setup("IE");
+	    testParameterWithXML();
+		setup("edge");
+		testParameterWithXML();
+	}
+}
