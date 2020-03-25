@@ -1,0 +1,37 @@
+package FacebookScreenshot;
+
+import java.io.File;
+//import Library.Utility;
+//import org.apache.commons.exec.util.StringUtils;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
+
+public class FacebookScreenshot {
+	
+	@Test
+	public void captureScreenshot() throws Exception
+	{
+		System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		WebDriver driver =  new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.facebook.com");
+		driver.findElement(By.xpath(".//*[@id='email']")).sendKeys("Testing ScreenShot");
+		
+		TakesScreenshot ts=(TakesScreenshot)driver;
+		
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		//File source=ts.getScreenshotAs(OutputType.FILE);
+		
+		org.openqa.selenium.io.FileHandler.copy(source, new File("./Screenshots/facebook.png"));
+		
+		System.out.println("Screenshot taken");
+		driver.quit();
+			
+	}	
+}
