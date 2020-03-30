@@ -1,0 +1,49 @@
+package DemoTest;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class Login_page_validation_Demo {
+	
+@Test
+	public void validate_Login_page() {
+		
+    System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://zero.webappsecurity.com/login.html");
+		
+		//Find user Name and set username
+		
+		WebElement txtbx_username = driver.findElement(By.name("user_login"));
+		
+		txtbx_username.sendKeys("username");
+		
+		//Password is set 
+		driver.findElement(By.name("user_password")).sendKeys("password");
+		
+		driver.findElement(By.name("submit")).click();
+		
+		//driver.findElement(By.xpath("//input[@value='input' and @type='submit']")).click();
+		
+		String expected_title = "Zero - Account Summary";
+		String actual_title = driver.getTitle();
+		
+		//Check Point
+		//if (expected_title.equals(actual_title))
+		//{
+			//System.out.println("Login Successfully");
+	    //}
+		//else
+	//	{
+		//	System.out.println("Login Failed");
+	//	}
+				
+		Assert.assertEquals(expected_title, actual_title);
+		
+	}
+
+}
