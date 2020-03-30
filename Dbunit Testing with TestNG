@@ -1,0 +1,45 @@
+package Dbunit;
+
+import java.io.FileInputStream;
+import org.dbunit.DBTestCase;
+import org.dbunit.PropertiesBasedJdbcDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.testng.annotations.Test;
+
+public class Dbunit extends DBTestCase {
+
+	public Dbunit(String name)
+	{
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "com.mysql.jdbc.Driver");
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:mysql://localhost:3306/user");
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root");
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "123456");
+			}
+	protected IDataSet getDataSet() throws Exception 
+	{
+		//String name;
+		return new FlatXmlDataSetBuilder().build(new FileInputStream("user.xml"));
+	}
+	
+	protected DatabaseOperation getSetUpOperation() throws Exception
+	{
+		return DatabaseOperation.REFRESH;
+		
+	}
+	
+	protected DatabaseOperation getTearDownOperation() throws Exception
+	{
+		return DatabaseOperation.NONE;
+	}
+	
+	@Test 	
+	public void testById()
+	{
+		int userId = 1;
+		assertThat(1, is(userId));
+		
+	}
+	
+}   
